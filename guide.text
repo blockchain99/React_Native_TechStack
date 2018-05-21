@@ -1,0 +1,75 @@
+-action: Object that tells the reducer how to change its data
+        (type, payload)
+-reducer: Function that returns some data
+-state: Data for our app to use.
+-store : Object that holds the application’s data(States)
+-provider: communication glue with React & Redux.
+          <-----------Provider------------>
+             <--------- Store ------>     >
+(Action)---->  (Reducer) → (State)        >
+             <----------------------->    >
+          <-----------Provider------------>
+----------------------------1----------------
+const reducer = (state = [], action ) => {
+        if ( action.type === ‘split_string’) {
+               return action.payload.split(‘’);  }
+         return state;  //otherwise, i.e []
+   };
+//store contains 1 reducer
+const store = Redux.createStore(reducer);
+
+store.getState();
+
+const action = {
+type: ‘split_string’,
+payload: ’asdf’ };
+
+store.dispatch(action);
+store.getState();
+------------------------2-------------
+const reducer = (state=[], action) => {
+  if(action.type === 'split_string') {
+     return action.payload.split('');
+  } else if (action.type === 'add_string') {
+    //state.push(action.payload);
+    //return state;
+    return [...state, action.payload]
+  }
+  return state;
+};
+
+const store = Redux.createStore(reducer);
+
+store.getState();
+
+const action = {
+  type: 'split_string',
+  payload: 'asdf' };
+
+store.dispatch(action);
+store.getState();
+
+const action2 = {
+  type: 'add_string',
+  payload: 'a'
+};
+
+store.dispatch(action2);
+store.getState();
+----------------------------------end of 2 -----
+1. ~/reactNativeRedux/myDev$ react-native init tech_stack
+2. mydev$ react-native init tech_stack
+tech_stack$ npm install --save redux react-redux
+tech_stack$ npm install --save-dev eslint-config-rallycoding
+3.
+***** now I remove previous emulator & add new phone
+in ADT tool in SDK, then no need to second command,
+just : react-native run-android, which enable remote
+debugger !!! *********
+
+4. when emulator not accomodate the changed code, just remove
+emulator and add new emulator in virtual device in Android studio.
+5. tech_stack$ npm i --save react-native-color  //color picker inatlled
+6. in LIstItem,js add componentWillUpdate() { LayoutAnimation.linear();}
+ in index.js add UIManager.setLayoutAnimationEnabledExperimental(true);
+ for animation of text.
